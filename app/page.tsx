@@ -1,65 +1,60 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { listCatalogUsage, listProfiles } from '@/lib/queries'
+import ProfileCard from '@/components/profile-card'
 
-export default function Home() {
+export const dynamic = 'force-dynamic'
+
+export default async function Home() {
+  const [profiles, topItems] = await Promise.all([listProfiles(), listCatalogUsage()])
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="mx-auto max-w-3xl px-6 py-16">
+      <section className="mb-16 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Show your <span className="text-[var(--accent)]">rig</span>.
+        </h1>
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed opacity-70">
+          AI 에이전트 하네스 셋팅을 공개하고, 다른 사람의 rig를 팔로우하세요.
+          Claude Code부터 MCP 서버, 스킬, 터미널까지 — 당신의 배는 어떻게 꾸며져 있나요?
+        </p>
+        <div className="mt-6 flex justify-center gap-3 text-sm">
+          <Link href="/login" className="rounded-md bg-[var(--accent)] px-4 py-2 font-medium text-[#0b1f2a] hover:opacity-90">
+            내 rig 만들기
+          </Link>
+          <Link href="/explore" className="rounded-md border border-[var(--border)] px-4 py-2 hover:border-[var(--accent)]">
+            둘러보기
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      <section className="mb-12">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--accent)]">최근 업데이트된 rig</h2>
+        <div className="flex flex-col gap-2">
+          {profiles.slice(0, 5).map((p) => (
+            <ProfileCard
+              key={p.id}
+              profile={p}
+              summary={p.rig_items?.slice(0, 5).map((r) => r.catalog_items?.name).filter(Boolean).join(' · ')}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          ))}
+          {profiles.length === 0 && <p className="text-sm opacity-50">첫 번째 rig의 주인공이 되어보세요.</p>}
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      <section>
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--accent)]">많이 쓰는 도구</h2>
+        <div className="flex flex-wrap gap-2">
+          {topItems.slice(0, 12).map((i) => (
+            <Link
+              key={i.id}
+              href={`/catalog/${i.kind}/${i.slug}`}
+              className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-sm hover:border-[var(--accent)]"
+            >
+              {i.name} <span className="opacity-50">{i.user_count}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </main>
+  )
 }
