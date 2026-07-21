@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { isCatalogKind } from '@/lib/kinds'
 import { slugify } from '@/lib/slug'
+import { safeHttpUrl } from '@/lib/url'
 
 async function requireUser() {
   const supabase = await createClient()
@@ -17,7 +18,7 @@ export async function addRigItem(formData: FormData) {
   const { supabase, user } = await requireUser()
   const kind = String(formData.get('kind') ?? '')
   const name = String(formData.get('name') ?? '').trim()
-  const url = String(formData.get('url') ?? '').trim() || null
+  const url = safeHttpUrl(String(formData.get('url') ?? '').trim())
   const existingId = String(formData.get('catalog_item_id') ?? '') || null
   if (!isCatalogKind(kind) || (!existingId && !name)) return
 
