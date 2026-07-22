@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- full-bleed 정사각 타일 — GitHub 등 플랫폼이 모서리를 직접 깎는 곳용 -->
+  <rect width="512" height="512" fill="#0B1F2A"/>
+  <g transform="translate(256 256) scale(0.72) translate(-256 -283)">
+    <path d="M 104 324 L 408 324 L 342 412 L 170 412 Z" fill="#1F7A93"/>
+    <rect x="132" y="266" width="248" height="44" rx="22" fill="#56B7C3"/>
+    <rect x="164" y="210" width="184" height="44" rx="22" fill="#7FD1DB"/>
+    <rect x="196" y="154" width="120" height="44" rx="22" fill="#E0533D"/>
+  </g>
+</svg>
