@@ -38,10 +38,7 @@ export default function RootLayout({
         <Header />
         <div className="flex-1">{children}</div>
         <footer className="border-t border-[var(--border)] py-6 text-center text-xs text-[var(--muted)]">
-          rigging — a followingseas project ·{" "}
-          <a href="https://github.com/followingseas/rigging" className="hover:text-[var(--accent)]">
-            GitHub
-          </a>
+          © 2026 followingseas — fair winds and following seas ⛵
         </footer>
       </body>
     </html>

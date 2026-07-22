@@ -1,7 +1,13 @@
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
 import { LogoSymbol } from '@/components/logo'
 import { signInWithGithub } from './actions'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (user) redirect('/me')
+
   return (
     <main className="mx-auto flex max-w-sm flex-col items-center gap-5 px-6 py-24 text-center">
       <LogoSymbol size={56} />

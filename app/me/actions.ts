@@ -49,6 +49,7 @@ export async function addRigItem(formData: FormData) {
     position: count ?? 0,
   })
   revalidatePath('/me')
+  revalidatePath('/me/edit')
 }
 
 export async function updateRigItem(formData: FormData) {
@@ -60,6 +61,7 @@ export async function updateRigItem(formData: FormData) {
   if (formData.has('is_primary')) patch.is_primary = formData.get('is_primary') === 'true'
   await supabase.from('rig_items').update(patch).eq('id', id).eq('user_id', user.id)
   revalidatePath('/me')
+  revalidatePath('/me/edit')
 }
 
 export async function removeRigItem(formData: FormData) {
@@ -68,6 +70,7 @@ export async function removeRigItem(formData: FormData) {
   if (!id) return
   await supabase.from('rig_items').delete().eq('id', id).eq('user_id', user.id)
   revalidatePath('/me')
+  revalidatePath('/me/edit')
 }
 
 export async function updateTagline(formData: FormData) {
@@ -75,4 +78,5 @@ export async function updateTagline(formData: FormData) {
   const tagline = String(formData.get('tagline') ?? '').trim().slice(0, 120) || null
   await supabase.from('profiles').update({ tagline }).eq('id', user.id)
   revalidatePath('/me')
+  revalidatePath('/me/edit')
 }

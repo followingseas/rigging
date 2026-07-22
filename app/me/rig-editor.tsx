@@ -118,7 +118,7 @@ function ItemRow({ item }: { item: RigItemWithCatalog }) {
   const savedNote = item.note ?? ''
 
   return (
-    <li className="grid h-12 grid-cols-[auto_1fr_auto] items-center gap-3 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3.5">
+    <li className="grid h-12 grid-cols-[auto_1fr_auto] items-center gap-3 rounded-lg bg-[var(--bg)]/60 px-3.5">
       <div className="flex min-w-0 items-center gap-2.5">
         <span className="h-2 w-2 flex-none rounded-full" style={{ background: KIND_COLORS[kind] }} aria-hidden="true" />
         <span className="truncate text-sm font-medium">{item.catalog_items.name}</span>
@@ -160,19 +160,21 @@ function ItemRow({ item }: { item: RigItemWithCatalog }) {
 export default function RigEditor({ rig, catalog }: { rig: RigItemWithCatalog[]; catalog: CatalogItem[] }) {
   const ownedIds = new Set(rig.map((r) => r.catalog_item_id))
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-5">
       {KINDS.map((kind) => {
         const items = rig.filter((i) => i.catalog_items.kind === kind)
         return (
-          <section key={kind}>
-            <h2 className="mb-2.5 flex items-center gap-2 text-sm font-semibold">
+          <section key={kind} className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
+            <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
               <span className="h-2.5 w-2.5 rounded-full" style={{ background: KIND_COLORS[kind] }} aria-hidden="true" />
               {KIND_LABELS[kind]}
               <span className="font-normal text-[var(--muted)]">{items.length > 0 ? items.length : ''}</span>
             </h2>
-            <ul className="mb-2.5 flex flex-col gap-2">
-              {items.map((i) => <ItemRow key={i.id} item={i} />)}
-            </ul>
+            {items.length > 0 && (
+              <ul className="mb-3 flex flex-col gap-1.5">
+                {items.map((i) => <ItemRow key={i.id} item={i} />)}
+              </ul>
+            )}
             <AddItemBox kind={kind} catalog={catalog} ownedIds={ownedIds} />
           </section>
         )

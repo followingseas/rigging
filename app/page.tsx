@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/server'
 import { listCatalogUsage, listProfiles } from '@/lib/queries'
 import { KIND_COLORS } from '@/lib/kinds'
 import ProfileCard from '@/components/profile-card'
@@ -7,7 +8,12 @@ import { LogoSymbol } from '@/components/logo'
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const [profiles, topItems] = await Promise.all([listProfiles(), listCatalogUsage()])
+  const supabase = await createClient()
+  const [{ data: { user } }, profiles, topItems] = await Promise.all([
+    supabase.auth.getUser(),
+    listProfiles(),
+    listCatalogUsage(),
+  ])
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
@@ -27,10 +33,10 @@ export default async function Home() {
         </p>
         <div className="mt-7 flex gap-3 text-sm">
           <Link
-            href="/login"
+            href={user ? '/me' : '/login'}
             className="rounded-lg bg-[var(--accent)] px-5 py-2.5 font-medium text-[#0b1f2a] hover:opacity-90"
           >
-            내 rig 만들기
+            {user ? '내 rig 보러가기' : '내 rig 만들기'}
           </Link>
           <Link
             href="/explore"
