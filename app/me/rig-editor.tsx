@@ -113,7 +113,7 @@ function AddItemBox({ kind, catalog, ownedIds }: {
 /** 노트는 blur 시 자동 저장 — 저장 버튼 없음 */
 function ItemRow({ item }: { item: RigItemWithCatalog }) {
   const kind = item.catalog_items.kind
-  const primaryToggleable = kind === 'harness' || kind === 'model'
+  const primaryToggleable = kind === 'harness'
   const noteFormRef = useRef<HTMLFormElement>(null)
   const savedNote = item.note ?? ''
 

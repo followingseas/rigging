@@ -31,9 +31,9 @@ describe('groupRig', () => {
   })
   it('sorts primary first, then by position', () => {
     const groups = groupRig([
-      item({ kind: 'model', name: 'b', position: 1 }),
-      item({ kind: 'model', name: 'c', position: 2, is_primary: true }),
-      item({ kind: 'model', name: 'a', position: 0 }),
+      item({ kind: 'mcp', name: 'b', position: 1 }),
+      item({ kind: 'mcp', name: 'c', position: 2, is_primary: true }),
+      item({ kind: 'mcp', name: 'a', position: 0 }),
     ])
     expect(groups[0][1].map((i) => i.catalog_items.name)).toEqual(['c', 'a', 'b'])
   })

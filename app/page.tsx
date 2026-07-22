@@ -21,7 +21,7 @@ export default async function Home() {
         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[var(--muted)]">
           rigging은 배를 항해하게 만드는 장비 일체를 뜻합니다.
           당신의 AI 에이전트 위에는 무엇이 얹혀 있나요?
-          하네스, 모델, MCP, 스킬 — 셋업을 공개하고 다른 사람의 rig를 팔로우하세요.
+          하네스, MCP, 스킬, 터미널 — 셋업을 공개하고 다른 사람의 rig를 팔로우하세요.
         </p>
         <div className="mt-7 flex gap-3 text-sm">
           <Link
