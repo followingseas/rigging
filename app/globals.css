@@ -31,6 +31,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-geist-sans), "Apple SD Gothic Neo", Arial, sans-serif;
+  word-break: keep-all; /* 한글: 단어 중간에서 줄바꿈하지 않는다 */
 }
 
 h1, h2, h3, .display {
