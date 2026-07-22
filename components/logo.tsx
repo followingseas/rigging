@@ -1,0 +1,12 @@
+export function LogoSymbol({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 512 512" fill="none" aria-hidden="true">
+      <g transform="translate(256 256) scale(1.3) translate(-256 -283)">
+        <path d="M 104 324 L 408 324 L 342 412 L 170 412 Z" fill="#1F7A93" />
+        <rect x="132" y="266" width="248" height="44" rx="22" fill="#56B7C3" />
+        <rect x="164" y="210" width="184" height="44" rx="22" fill="#7FD1DB" />
+        <rect x="196" y="154" width="120" height="44" rx="22" fill="#E0533D" />
+      </g>
+    </svg>
+  )
+}

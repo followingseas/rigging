@@ -1,6 +1,13 @@
-# Rigging
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo/lockup-white.svg">
+  <img src="assets/logo/lockup.svg" width="360" alt="rigging">
+</picture>
 
 **Share your AI agent harness setup.**
+
+</div>
 
 AI 에이전트 사용자들이 자신의 하네스 셋팅("rig")을 구조화된 프로필로 공개하고, 다른 사람의 rig를 탐색·팔로우하는 커뮤니티입니다. rigging은 배의 돛대·돛줄·장비 일체를 뜻하는 항해 용어로, Followingseas의 항해 컨셉을 잇습니다.
 
